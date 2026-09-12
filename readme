@@ -1,0 +1,213 @@
+# Telco Customer Churn Prediction
+
+A machine learning project exploring customer churn using the IBM Telco Customer Churn dataset. The project compares Logistic Regression and XGBoost models and uses SHAP and LIME to understand model predictions.
+
+## Project Overview
+Customer churn refers to customers leaving a service provider. Predicting which customers are likely to churn can help companies identify customers who may need additional attention or retention strategies.
+In this project, I explored customer information such as contract type, tenure, internet service, monthly charges, payment method, and other service-related features to predict whether a customer would churn.
+
+## Objective
+
+The main objectives of this project were to:
+
+* Explore customer churn patterns.
+* Preprocess categorical and numerical data.
+* Train a Logistic Regression model.
+* Train an XGBoost classification model.
+* Compare the performance of both models.
+* Use SHAP to understand overall feature importance.
+* Use LIME to understand an individual prediction.
+
+## Dataset
+
+The project uses the **IBM Telco Customer Churn dataset**.
+
+The dataset contains information about customers of a telecommunications company, including:
+
+* Customer demographics
+* Tenure
+* Contract type
+* Internet service
+* Online security and backup services
+* Payment method
+* Monthly charges
+* Total charges
+* Churn status
+
+The target variable is `Churn_Flag`:
+
+* '0' → Stayed
+* '1' → Churned
+
+## Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Scikit-learn
+* XGBoost
+* SHAP
+* LIME
+* Jupyter Notebook
+
+## Project Workflow
+
+### 1. Data Exploration
+
+I first explored the dataset to understand:
+
+* Customer characteristics
+* Churn distribution
+* Contract types
+* Internet service types
+* Monthly charges
+* Tenure
+* Other service-related features
+
+For example, churn rates were compared across different contract types and services.
+
+### 2. Data Preprocessing
+
+The dataset contains both numerical and categorical features.
+
+Categorical features were encoded using preprocessing pipelines, while numerical features were processed separately.
+
+The data was then divided into training and testing sets:
+
+* 80% training data
+* 20% testing data
+
+'stratify=y' was used to maintain a similar proportion of churned and non-churned customers in both sets.
+
+### 3. Logistic Regression
+
+A Logistic Regression model was trained as a baseline classification model.
+
+### 4. XGBoost
+
+An XGBoost classifier was trained to compare its performance with Logistic Regression.
+
+Class weighting was used to account for the imbalance between churned and non-churned customers.
+
+## Model Results
+
+The models were evaluated using accuracy, precision, recall, and F1-score.
+
+### Logistic Regression
+
+| Metric    | Stayed |  Churned |
+| --------- | -----: | -------: |
+| Precision |   0.90 |     0.50 |
+| Recall    |   0.72 | **0.78** |
+| F1-score  |   0.80 | **0.61** |
+
+**Accuracy: 0.74**
+
+### XGBoost
+
+| Metric    | Stayed | Churned |
+| --------- | -----: | ------: |
+| Precision |   0.87 |    0.53 |
+| Recall    |   0.79 |    0.66 |
+| F1-score  |   0.82 |    0.59 |
+
+**Accuracy: 0.75**
+
+## Model Comparison
+
+| Metric          | Logistic Regression |  XGBoost |
+| --------------- | ------------------: | -------: |
+| Accuracy        |                0.74 | **0.75** |
+| Churn Precision |                0.50 | **0.53** |
+| Churn Recall    |            **0.78** |     0.66 |
+| Churn F1-score  |            **0.61** |     0.59 |
+
+XGBoost achieved slightly higher overall accuracy, while Logistic Regression achieved substantially higher recall for the Churn class.
+
+Since identifying customers who actually churn is important in a churn prediction problem, **Logistic Regression performed better at detecting churned customers** in this experiment.
+
+## Model Explainability
+
+### SHAP
+
+SHAP was used to understand which features had the greatest influence on the XGBoost model's predictions.
+
+The analysis showed that features such as:
+
+* Contract type
+* Tenure
+* Monthly charges
+* Internet service
+* Other service-related features
+
+had important effects on the model's predictions.
+
+SHAP helps explain the model globally by showing which features have the greatest influence across predictions.
+
+### LIME
+
+LIME was used to investigate an individual customer prediction.
+
+For one test customer, the model predicted:
+
+**Stayed: 99.88%**
+
+**Churned: 0.12%**
+
+However, the customer's actual result was:
+
+**Churned**
+
+This was therefore a **false negative**.
+
+LIME showed that factors such as high tenure and having a two-year contract strongly pushed the model toward predicting that the customer would stay. High monthly charges and fiber-optic internet service pushed the prediction more toward churn.
+
+This example demonstrates that an individual prediction can still be incorrect even when the model is highly confident.
+
+## Key Findings
+
+* Contract type is an important factor in churn prediction.
+* Customer tenure has a strong influence on predictions.
+* Monthly charges can contribute toward churn predictions.
+* XGBoost achieved slightly higher overall accuracy.
+* Logistic Regression achieved better recall for detecting churn.
+* SHAP provided a global view of feature importance.
+* LIME provided a local explanation for an individual prediction.
+* The model can still make highly confident incorrect predictions, such as false negatives.
+
+## Conclusion
+
+This project provided practical experience with the complete machine learning workflow, from data exploration and preprocessing to model training, evaluation, and explainability.
+
+Although XGBoost achieved slightly higher accuracy, Logistic Regression was better at identifying customers who actually churned based on recall and F1-score for the Churn class.
+
+The use of SHAP and LIME also demonstrated how machine learning models can be interpreted beyond simply looking at their predictions.
+
+## Future Improvements
+
+Possible improvements include:
+
+* Hyperparameter tuning.
+* Testing additional classification models.
+* Improving recall for the Churn class.
+* Exploring different class-imbalance techniques.
+* Performing cross-validation.
+* Investigating additional feature engineering approaches.
+
+## Project Structure
+
+text
+telco-customer-churn/
+│
+├── customer_churn.ipynb
+├── README.md
+├── .gitignore
+└── requirements.txt
+
+#How to Run
+Clone the repository and install the required Python packages.
+pip install -r requirements.txt
+Then open the Jupyter Notebook:
+jupyter notebook
+Open `customer_churn.ipynb` and run the cells.
